@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+  ~ @author    Tigren Solutions <info@tigren.com>
+  ~ @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+  ~ @license   Open Software License ("OSL") v. 3.0
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--    Hide button add cart-->
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="hidebutton" type="Tigren\CustomerGroupCatalog\Plugin\HideButton" sortOrder="1"/>
+    </type>
+
+    <!--    Hide price-->
+    <preference for="Magento\Catalog\Pricing\Render\FinalPriceBox"
+                type="Tigren\CustomerGroupCatalog\Pricing\Render\FinalPriceBox"/>
+    <preference for="Magento\ConfigurableProduct\Pricing\Render\FinalPriceBox"
+                type="Tigren\CustomerGroupCatalog\Pricing\Render\FinalPriceBox"/>
+
+    <!-- Create our type GroupCatGridDataProvider -->
+    <virtualType name="GroupCatGridDataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">
+                Tigren\CustomerGroupCatalog\Model\ResourceModel\GroupCat\Collection
+            </argument>
+            <argument name="filterPool" xsi:type="object" shared="false">GroupCatGridFilterPool
+            </argument> <!-- Define new object for filters -->
+        </arguments>
+    </virtualType>
+
+    <!-- Create our type GroupCatGridFilterPool -->
+    <virtualType name="GroupCatGridFilterPool"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">
+                    Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter
+                </item>
+                <item name="fulltext" xsi:type="object">
+                    Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Type for groupcat_listing_data_source -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="groupcat_listing_data_source" xsi:type="string">
+                    Tigren\CustomerGroupCatalog\Model\ResourceModel\Grid\GroupCat\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Tigren\CustomerGroupCatalog\Controller\Index\Example">
+        <plugin name="Tigren_CustomerGroupCatalog_Plugin" type="Tigren\CustomerGroupCatalog\Plugin\ExamplePlugin"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
+
+    <!-- Simulate our class Tigren\CustomerGroupCatalog\Model\ResourceModel\Grid\GroupCat\Collection -->
+    <virtualType name="Tigren\CustomerGroupCatalog\Model\ResourceModel\Grid\GroupCat\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">tigren_customer_group_catalog</argument>
+            <argument name="resourceModel" xsi:type="string">Tigren\CustomerGroupCatalog\Model\ResourceModel\GroupCat
+            </argument>
+        </arguments>
+    </virtualType>
+</config>
+
+

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+  ~ @author    Tigren Solutions <info@tigren.com>
+  ~ @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+  ~ @license   Open Software License ("OSL") v. 3.0
+  -->
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="tigren_customer_group_catalog" resource="default" engine="innodb"
+           comment="Customer Group Catalog Table">
+        <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Rule ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" default="simple"
+                comment="Name"/>
+        <column xsi:type="varchar" name="customer_group_ids" nullable="false" length="255" default="simple"
+                comment="Customer Group"/>
+        <column xsi:type="varchar" name="store_ids" nullable="false" length="255" default="simple"
+                comment="Store"/>
+        <column xsi:type="varchar" name="product_ids" nullable="false" length="255" default="simple"
+                comment="Products"/>
+        <column xsi:type="int" name="discount_amount" nullable="false" padding="10" comment="Discount Amount"/>
+        <column xsi:type="timestamp" name="start_time" on_update="true" nullable="true" default="CURRENT_TIMESTAMP"
+                comment="Start Time"/>
+        <column xsi:type="timestamp" name="time_end" on_update="true" nullable="true" default="CURRENT_TIMESTAMP"
+                comment="Time End"/>
+        <column xsi:type="int" name="priority" nullable="false" padding="10" comment="Priority"/>
+        <column xsi:type="int" name="active" nullable="false" padding="10" comment="Active"/>
+        <column xsi:type="timestamp" name="created_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rule_id"/>
+        </constraint>
+        <index referenceId="Tigren_Event_Set_ID" indexType="btree">
+            <column name="rule_id"/>
+        </index>
+    </table>
+    <table name="tigren_customer_group_catalog_history" resource="default" engine="innodb"
+           comment="Customer Group Catalog History Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="order_id" nullable="true" length="50"
+                comment="Order ID"/>
+        <column xsi:type="int" name="product_id" nullable="false" padding="10" unsigned="true"
+                comment="Product ID"/>
+        <column xsi:type="int" name="customer_id" nullable="false" padding="10" unsigned="true"
+                comment="Customer ID"/>
+        <column xsi:type="int" name="rule_id" nullable="false" padding="10" unsigned="true"
+                comment="Rule ID"/>
+        <column xsi:type="timestamp" name="created_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="ORDER_ID"
+                    table="tigren_customer_group_catalog_history" column="order_id" referenceTable="sales_order"
+                    referenceColumn="increment_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="CUSTOMER_ID"
+                    table="tigren_customer_group_catalog_history" column="customer_id" referenceTable="customer_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="RULE_ID"
+                    table="tigren_customer_group_catalog_history" column="rule_id"
+                    referenceTable="tigren_customer_group_catalog"
+                    referenceColumn="rule_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="PRODUCT_ID"
+                    table="tigren_customer_group_catalog_history" column="product_id"
+                    referenceTable="catalog_product_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+</schema>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+  ~ @author    Tigren Solutions <info@tigren.com>
+  ~ @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+  ~ @license   Open Software License ("OSL") v. 3.0
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Tigren\Grid\Ui\DataProvider\Category\ListingDataProvider">
+        <plugin name="tigren_grid_attributes" type="Tigren\Grid\Plugin\AddAttributesToUiDataProvider"/>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="tigren_grid_category_listing_data_source" xsi:type="string">TigrenGridCategoryCollection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="TigrenGridCategoryCollection" type="Tigren\Grid\Ui\DataProvider\Category\Listing\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">catalog_category_entity</argument>
+            <argument name="resourceModel" xsi:type="string">Tigren\Grid\Model\ResourceModel\Category</argument>
+        </arguments>
+    </virtualType>
+</config>
