@@ -47,7 +47,6 @@ class AddToCart implements ObserverInterface
      * @param DateTimeFactory $dateTimeFactory
      * @param LoggerInterface $logger
      */
-
     public function __construct(
         Session           $checkoutSession,
         CollectionFactory $collectionFactory,

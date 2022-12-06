@@ -39,7 +39,6 @@ class DataRule extends Action
      */
     public function execute()
     {
-        echo "Lấy dữ liệu từ bảng tigren_customer_group_catalog";
         $this->collectionFactory->create();
         $collection = $this->collectionFactory->create()
             ->addFieldToSelect(['*'])

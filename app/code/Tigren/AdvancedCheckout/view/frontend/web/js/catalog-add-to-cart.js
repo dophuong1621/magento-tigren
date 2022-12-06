@@ -82,7 +82,7 @@ define([
                                                             result = response.result;
                                                             if (result === true) {
                                                                 popup.modal('closeModal');
-                                                                location.reload();
+                                                                window.location.href = response.redirect;
                                                             }
                                                         },
                                                         error: function (xhr, status, errorThrown) {

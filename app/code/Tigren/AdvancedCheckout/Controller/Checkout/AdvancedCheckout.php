@@ -91,7 +91,7 @@ class AdvancedCheckout extends Action
         if ($attributeProduct == 1) {
             foreach ($allProduct as $item) {
                 if ($item->getSku() == $skuProduct) {
-                    $paramQty = $this->getRequest()->getParam('qty');
+//                    $paramQty = $this->getRequest()->getParam('qty');
                     if ($item->getQty() > 1) {
                         $data = [
                             'product_in_cart' => $skuProduct,

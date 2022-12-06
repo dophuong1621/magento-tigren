@@ -32,8 +32,7 @@ class Save extends Action
     public function __construct(
         Context  $context,
         GroupCat $groupCatFactory,
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->groupCatFactory = $groupCatFactory;
     }
@@ -62,7 +61,7 @@ class Save extends Action
             $groupCatFactory->load($id);
         }
         try {
-            $groupCatFactory->addData($groupCatData);
+            $groupCatFactory->setData($groupCatData);
             $groupCatFactory->save();
             $this->messageManager->addSuccessMessage(__('You saved the post.'));
         } catch (Exception $e) {

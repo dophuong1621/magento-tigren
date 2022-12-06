@@ -1,23 +1,11 @@
 <?php
-/*
- * @author    Tigren Solutions <info@tigren.com>
- * @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
- * @license   Open Software License ("OSL") v. 3.0
- */
-
 namespace Tigren\Testimonial\Controller\Adminhtml\Testimonial;
 
-use Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Redirect;
-use Magento\Framework\Exception\LocalizedException;
-use RuntimeException;
+use Magento\Framework\Controller\ResultInterface;
 use Tigren\Testimonial\Model\Testimonial;
 
-/**
- * Class Save
- * @package Tigren\Testimonial\Controller\Adminhtml\Testimonial
- */
 class Save extends Action
 {
     /**
@@ -27,19 +15,18 @@ class Save extends Action
 
     /**
      * @param Action\Context $context
-     * @param Testimonial $model
+     * @param \TIgren\Testimonial\Model\Testimonial $model
      */
     public function __construct(
         Action\Context $context,
-        Testimonial    $model
-    )
-    {
+        \Tigren\Testimonial\Model\Testimonial $model
+    ) {
         parent::__construct($context);
         $this->_model = $model;
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     protected function _isAllowed()
     {
@@ -47,7 +34,7 @@ class Save extends Action
     }
 
     /**
-     * @return Redirect
+     * @return ResultInterface
      */
     public function execute()
     {
@@ -65,7 +52,7 @@ class Save extends Action
             $model->setData($data);
 
             $this->_eventManager->dispatch(
-                'jobs_testimonial_prepare_save',
+                'tigren_testimonial_prepare_save',
                 ['testimonial' => $model, 'request' => $this->getRequest()]
             );
 
@@ -77,9 +64,11 @@ class Save extends Action
                     return $resultRedirect->setPath('*/*/edit', ['id' => $model->getId(), '_current' => true]);
                 }
                 return $resultRedirect->setPath('*/*/');
-            } catch (LocalizedException|RuntimeException $e) {
+            } catch (\Magento\Framework\Exception\LocalizedException $e) {
                 $this->messageManager->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (\RuntimeException $e) {
+                $this->messageManager->addError($e->getMessage());
+            } catch (\Exception $e) {
                 $this->messageManager->addException($e, __('Something went wrong while saving the testimonial'));
             }
 

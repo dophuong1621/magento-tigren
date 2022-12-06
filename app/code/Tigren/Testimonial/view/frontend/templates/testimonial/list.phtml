@@ -23,7 +23,7 @@ $testimonialCollection = $block->getLoadedTestimonialCollection();
         <tr>
             <th scope="col" class="col id"><?php echo __('ID') ?></th>
             <th scope="col" class="col name"><?php echo __('Name') ?></th>
-            <th scope="col" class="col email"><?php echo __('Enail') ?></th>
+            <th scope="col" class="col email"><?php echo __('Email') ?></th>
             <th scope="col" class="col message"><?php echo __('Message') ?></th>
             <th scope="col" class="col company"><?php echo __('Company ') ?></th>
             <th scope="col" class="col rating"><?php echo __('Rating') ?></th>
@@ -35,8 +35,8 @@ $testimonialCollection = $block->getLoadedTestimonialCollection();
         <tbody>
         <?php foreach ($testimonialCollection as $testimonial): ?>
             <tr>
-                <td class="col id" id="id"
-                ><?php echo $testimonial->getId() ?></td>
+                <td class="col id" id="id">
+                    <?php echo $testimonial->getId() ?></td>
                 <td class="col name"><?php echo $testimonial->getName() ?></td>
                 <td class="col email"><?php echo $testimonial->getEmail() ?></td>
                 <td class="col message"><?php echo $testimonial->getMessage() ?></td>
@@ -49,7 +49,9 @@ $testimonialCollection = $block->getLoadedTestimonialCollection();
                        class="edit">Edit</a>
                 </td>
                 <td>
-                    <a class="delete-action" testimonial-id="<?php echo $testimonial->getEntityId() ?>">Delete</a>
+                    <a class="delete-action"
+                       href="http://magento.localhost.com/testimonial/testimonial/delete?id=<?php echo $testimonial->getEntityId() ?>"
+                       testimonial-id="<?php echo $testimonial->getEntityId() ?>">Delete</a>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -60,51 +62,20 @@ $testimonialCollection = $block->getLoadedTestimonialCollection();
 <?php if ($block->getPagerHtml()): ?>
     <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
 <?php endif ?>
-<!--<div class="liveExample">-->
-<!--    <p>First Name: <input data-bind="value: firstName"/></p>-->
-<!--    <p>Last Name: <input data-bind="value: lastName"/></p>-->
-<!--    <h2>Hellooooo <span data-bind="text: fullName"></span></h2>-->
-<!--</div>-->
-<!---->
-<!--<div data-bind="visible: shouldShowMessage">-->
-<!--    You will see this message only when "shouldShowMessage" holds a true value.-->
-<!--</div>-->
-<!---->
-<!--<script type="text/javascript">-->
-<!--    var viewModel = {-->
-<!--        shouldShowMessage: ko.observable(true) // Message initially visible-->
-<!--    };-->
-<!--    viewModel.shouldShowMessage(false); // ... now it's hidden-->
-<!--    viewModel.shouldShowMessage(true); // ... now it's visible again-->
-<!--</script>-->
-<!--<nav data-mage-init="{'create-api': {}}"></nav>-->
-<!--<script src="//code.aspnetcdn.com/ajax/knockout/knockout-3-0-0.js"></script>-->
-<!--<script src="//ajax.jquery.com/jquery-2.1.3.js"></script>-->
 <script type="text/javascript">
-    // $(function () {
-    //     var viewModel = function (first, last) {
-    //         this.firstName = ko.observable(first);
-    //         this.lastName = ko.observable(last);
-    //
-    //         this.fullName = ko.computed(function () {
-    //             return this.firstName() + " " + this.lastName();
-    //         }, this);
-    //     };
-    //     ko.applyBindings(new viewModel("Do", "Phuong"));
+    // require(['jquery', 'mage/storage', 'mage/url'], function ($, storage, urlBuilder) {
+    //     $('.delete-action').on('click', function () {
+    //         var idTestimonial = parseInt($(this).attr('testimonial-id'));
+    //         storage.post(
+    //             urlBuilder.build('rest/V1/testimonial/delete'),
+    //             JSON.stringify({ id: idTestimonial })
+    //         ).done(function (r) {
+    //             window.location.replace(r);
+    //         }).fail(function (r) {
+    //             alert('Error');
+    //         });
+    //     });
     // });
-    require(['jquery', 'mage/storage', 'mage/url'], function ($, storage, urlBuilder) {
-        $('.delete-action').on('click', function () {
-            var idTestimonial = parseInt($(this).attr('testimonial-id'));
-            storage.post(
-                urlBuilder.build("rest/V1/testimonial/delete"),
-                JSON.stringify({id: idTestimonial})
-            ).done(function (r) {
-                window.location.replace(r);
-            }).fail(function (r) {
-                alert("Error");
-            });
-        });
-    });
 </script>
 
 

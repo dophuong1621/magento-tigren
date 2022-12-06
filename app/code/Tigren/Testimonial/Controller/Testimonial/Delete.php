@@ -54,6 +54,6 @@ class Delete extends Action
         $id = $this->_request->getParam('id');
         $testimonial = $this->_tesimonialFactory->create()->load($id);
         $testimonial->delete();
-        return $this->_redirect('testimonial/storefront/index');
+        return $this->_redirect('testimonial/testimonial/index');
     }
 }

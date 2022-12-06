@@ -5,11 +5,11 @@
   ~ @license   Open Software License ("OSL") v. 3.0
   -->
 
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"
-      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="groupcat_groupcat_form"/>
+            <block class="Tigren\Testimonial\Block\Adminhtml\Testimonial\Edit" name="testimonial_edit"/>
         </referenceContainer>
     </body>
 </page>

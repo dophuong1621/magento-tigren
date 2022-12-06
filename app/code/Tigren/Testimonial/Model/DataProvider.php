@@ -1,30 +1,34 @@
 <?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ */
 
-namespace Tigren\CustomerGroupCatalog\Model\Config;
+namespace Tigren\Testimonial\Model;
+
 
 use Magento\Ui\DataProvider\AbstractDataProvider;
-use Tigren\CustomerGroupCatalog\Model\ResourceModel\GroupCat\CollectionFactory;
+use Tigren\Testimonial\Model\ResourceModel\Testimonial\CollectionFactory;
 
 /**
  * Class DataProvider
- * @package Tigren\CustomerGroupCatalog\Model\Config
+ * @package Tigren\Testimonial\Model
  */
 class DataProvider extends AbstractDataProvider
 {
-    /**
-     * @var array
-     */
     protected $_loadedData;
 
     /**
-     * @var CollectionFactory
+     * @var ResourceModel\Testimonial\Collection
      */
-    protected $collectionFactory;
+    protected $collection;
+
 
     /**
-     * @param string $name
-     * @param string $primaryFieldName
-     * @param string $requestFieldName
+     * @param $name
+     * @param $primaryFieldName
+     * @param $requestFieldName
      * @param CollectionFactory $collectionFactory
      * @param array $meta
      * @param array $data
@@ -37,7 +41,7 @@ class DataProvider extends AbstractDataProvider
         array $meta = [],
         array $data = []
     ) {
-        $this->collection = $collectionFactory;
+        $this->collection = $collectionFactory->create();
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
@@ -49,7 +53,7 @@ class DataProvider extends AbstractDataProvider
         if (isset($this->_loadedData)) {
             return $this->_loadedData;
         }
-        $items = $this->collection->create()->getItems();
+        $items = $this->collection->getItems();
         foreach ($items as $item) {
             $this->_loadedData[$item->getId()] = $item->getData();
         }

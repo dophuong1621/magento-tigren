@@ -1,26 +1,20 @@
 <?php
-
 namespace Tigren\Testimonial\Controller\Adminhtml\Testimonial;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
-use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
 use Tigren\Testimonial\Model\Testimonial;
 
-/**
- * Class Edit
- * @package Tigren\Testimonial\Controller\Adminhtml\Testimonial
- */
 class Edit extends Action
 {
-
     /**
+     * Core registry
      * @var Registry
      */
-    protected $_coreRegistry;
+    protected $_coreRegistry = null;
 
     /**
      * @var PageFactory
@@ -40,20 +34,16 @@ class Edit extends Action
      */
     public function __construct(
         Action\Context $context,
-        PageFactory    $resultPageFactory,
-        Registry       $registry,
-        Testimonial    $model
-    )
-    {
+        PageFactory $resultPageFactory,
+        Registry $registry,
+        Testimonial $model
+    ) {
         $this->_resultPageFactory = $resultPageFactory;
         $this->_coreRegistry = $registry;
         $this->_model = $model;
         parent::__construct($context);
     }
 
-    /**
-     * @return bool
-     */
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed('Tigren_Testimonial::testimonial_save');
@@ -68,12 +58,13 @@ class Edit extends Action
         $resultPage = $this->_resultPageFactory->create();
         $resultPage->setActiveMenu('Tigren_Testimonial::testimonial')
             ->addBreadcrumb(__('Testimonial'), __('Testimonial'))
-            ->addBreadcrumb(__('Manage Testimonial'), __('Manage Testimonial'));
+            ->addBreadcrumb(__('Manage Testimonial Question'), __('Manage Testimonial Question'));
         return $resultPage;
     }
 
     /**
-     * @return Page|Redirect
+     * @return mixed
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute()
     {

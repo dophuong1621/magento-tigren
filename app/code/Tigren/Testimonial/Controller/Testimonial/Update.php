@@ -39,10 +39,9 @@ class Update extends Action
      */
     public function __construct(
         TestimonialFactory $testimonialFactory,
-        Context            $context,
-        PageFactory        $pageFactory,
-    )
-    {
+        Context $context,
+        PageFactory $pageFactory,
+    ) {
         $this->testimonialFactory = $testimonialFactory;
         $this->pageFactory = $pageFactory;
         return parent::__construct($context);
@@ -56,21 +55,18 @@ class Update extends Action
     {
         $data = $this->getRequest()->getParams();
         $id = $data['id'];
-        $newData = [
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'message' => $data['message'],
-            'company' => $data['company'],
-            'rating' => $data['rating'],
-            'status' => $data['status'],
-        ];
 
         $testimonial = $this->testimonialFactory->create()->load($id);
         if ($id) {
-            $testimonial->setData($newData);
+            $testimonial->setData('name', $data['name']);
+            $testimonial->setData('email', $data['email']);
+            $testimonial->setData('message', $data['message']);
+            $testimonial->setData('company', $data['company']);
+            $testimonial->setData('rating', $data['rating']);
+            $testimonial->setData('status', $data['status']);
             $testimonial->save();
             $this->messageManager->addSuccessMessage(__('You update the question success.'));
-            return $this->resultRedirectFactory->create()->setPath('testimonial/storefront/index');
+            return $this->resultRedirectFactory->create()->setPath('testimonial/testimonial/index');
         } else {
             $this->messageManager->addErrorMessage('Error');
             return $this->pageFactory->create();

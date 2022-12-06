@@ -11,7 +11,9 @@
     <body>
         <referenceContainer name="content">
             <block class="Tigren\Testimonial\Block\Testimonial\ListTestimonial" name="testimonial_list"
-                   template="testimonial/list.phtml"/>
+                   template="testimonial/list.phtml"
+                    cacheable="false"
+            />
         </referenceContainer>
     </body>
 </page>

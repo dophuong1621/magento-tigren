@@ -7,14 +7,14 @@
 
 namespace Tigren\Testimonial\Block\Testimonial;
 
-use Magento\Framework\App\ResourceConnection;
+use Exception;
 use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
+use Psr\Log\LoggerInterface;
 use Tigren\Testimonial\Model\ResourceModel\Testimonial\CollectionFactory;
-use Tigren\Testimonial\Model\TestimonialFactory;
 
 /**
  * Class ListTestimonial
@@ -28,32 +28,24 @@ class ListTestimonial extends Template
     protected $_testimonial;
 
     /**
-     * @var ResourceConnection
+     * @var LoggerInterface
      */
-    protected $_resource;
-
-    /**
-     * @var TestimonialFactory
-     */
-    protected $testimonialFactory;
+    protected $logger;
 
     /**
      * @param Context $context
      * @param CollectionFactory $testimonial
-     * @param ResourceConnection $resource
-     * @param TestimonialFactory $testimonialFactory
      * @param array $data
+     * @param LoggerInterface $logger
      */
     public function __construct(
-        Context            $context,
-        CollectionFactory  $testimonial,
-        ResourceConnection $resource,
-        TestimonialFactory $testimonialFactory,
-        array              $data = []
+        Context $context,
+        CollectionFactory $testimonial,
+        array $data = [],
+        LoggerInterface   $logger,
     ) {
         $this->_testimonial = $testimonial;
-        $this->_resource = $resource;
-        $this->testimonialFactory = $testimonialFactory;
+        $this->logger = $logger;
         parent::__construct(
             $context,
             $data
@@ -72,11 +64,8 @@ class ListTestimonial extends Template
             $collection->setPageSize($pageSize);
             $collection->setCurPage($page);
             return $collection;
-        } catch (\Exception $e) {
-            $writer = new \Zend_Log_Writer_Stream(BP . '/var/log/custom.log');
-            $logger = new \Zend_Log();
-            $logger->addWriter($writer);
-            $logger->info(print_r($e->getMessage(), true));
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), $e->getTrace());
         }
     }
 

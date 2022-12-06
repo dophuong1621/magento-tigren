@@ -34,20 +34,17 @@ class Form extends Generic
      * @param array $data
      */
     public function __construct(
-        Context     $context,
-        Registry    $registry,
+        Context $context,
+        Registry $registry,
         FormFactory $formFactory,
-        Store       $systemStore,
-        array       $data = []
-    )
-    {
+        Store $systemStore,
+        array $data = []
+    ) {
         $this->_systemStore = $systemStore;
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
     /**
-     * Init form
-     *
      * @return void
      */
     protected function _construct()
@@ -58,8 +55,6 @@ class Form extends Generic
     }
 
     /**
-     * Prepare form
-     *
      * @return $this
      * @throws LocalizedException
      */
@@ -115,8 +110,16 @@ class Form extends Generic
 
         $fieldset->addField(
             'status',
-            'text',
-            ['name' => 'status', 'label' => __('Status'), 'title' => __('Status'), 'required' => true]
+            'select',
+            [
+                'name' => 'status',
+                'label' => __('Status'),
+                'title' => __('Status'),
+                'values' => [
+                    '1' => __('Enable'),
+                    '0' => __('Disable')
+                ]
+            ]
         );
 
         $form->setValues($model->getData());

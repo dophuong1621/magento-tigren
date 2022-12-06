@@ -26,7 +26,7 @@
                 Tigren\CustomerGroupCatalog\Model\ResourceModel\GroupCat\Collection
             </argument>
             <argument name="filterPool" xsi:type="object" shared="false">GroupCatGridFilterPool
-            </argument> <!-- Define new object for filters -->
+            </argument>
         </arguments>
     </virtualType>
 

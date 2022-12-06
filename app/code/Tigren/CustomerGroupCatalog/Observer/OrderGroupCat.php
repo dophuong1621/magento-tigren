@@ -55,8 +55,7 @@ class OrderGroupCat implements ObserverInterface
         Session         $checkoutSession,
         GroupCatHistory $groupCatHistory,
         LoggerInterface $logger,
-    )
-    {
+    ) {
         $this->groupCatHistory = $groupCatHistory;
         $this->checkoutSession = $checkoutSession;
         $this->customerSession = $customerSession;

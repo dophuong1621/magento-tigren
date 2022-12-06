@@ -7,15 +7,11 @@
 
 namespace Tigren\Testimonial\Controller\Adminhtml\Testimonial;
 
-use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
+use Magento\Backend\App\Action;
 
-/**
- * Class Index
- * @package Tigren\Testimonial\Controller\Adminhtml\Testimonial
- */
 class Index extends Action
 {
     const ADMIN_RESOURCE = 'Tigren_Testimonial::testimonial';
@@ -30,14 +26,16 @@ class Index extends Action
      * @param PageFactory $resultPageFactory
      */
     public function __construct(
-        Context     $context,
+        Context $context,
         PageFactory $resultPageFactory
     ) {
-        $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);
+        $this->resultPageFactory = $resultPageFactory;
     }
 
     /**
+     * Index action
+     *
      * @return Page
      */
     public function execute()
@@ -46,7 +44,7 @@ class Index extends Action
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Tigren_Testimonial::testimonial');
         $resultPage->addBreadcrumb(__('Testimonial'), __('Testimonial'));
-        $resultPage->addBreadcrumb(__('Manage Testimonial'), __('Manage Testimonial'));
+        $resultPage->addBreadcrumb(__('Manage Testimonial Question'), __('Manage Testimonial Question'));
         $resultPage->getConfig()->getTitle()->prepend(__('Testimonial'));
 
         return $resultPage;

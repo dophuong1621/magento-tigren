@@ -54,11 +54,8 @@ class Testimonial implements TestimonialInterface
             'rating' => $formData['rating'],
             'status' => $formData['status'],
         ];
-        $writer = new \Zend_Log_Writer_Stream(BP . '/var/log/custom.log');
-        $logger = new \Zend_Log();
-        $logger->addWriter($writer);
-        if (isset($formData['id'])) {
 
+        if (isset($formData['id'])) {
             $testimonial = $this->testimonialFactory->create()->load($formData['id']);
             $testimonial->setData('name', $formData['name']);
             $testimonial->setData('email', $formData['email']);

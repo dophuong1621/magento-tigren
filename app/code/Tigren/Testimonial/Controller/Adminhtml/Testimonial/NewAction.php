@@ -13,7 +13,7 @@ use Magento\Backend\Model\View\Result\Forward;
 use Magento\Backend\Model\View\Result\ForwardFactory;
 
 /**
- * Class NewAction
+ * Class AddNew
  * @package Tigren\Testimonial\Controller\Adminhtml\Testimonial
  */
 class NewAction extends Action
@@ -28,7 +28,7 @@ class NewAction extends Action
      * @param ForwardFactory $resultForwardFactory
      */
     public function __construct(
-        Context        $context,
+        Context $context,
         ForwardFactory $resultForwardFactory
     ) {
         $this->_resultForwardFactory = $resultForwardFactory;
@@ -53,3 +53,4 @@ class NewAction extends Action
         return $resultForward->forward('edit');
     }
 }
+
