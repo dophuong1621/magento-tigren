@@ -50,18 +50,10 @@ class GroupCatActions extends Column
             foreach ($dataSource['data']['items'] as &$item) {
                 $item[$this->getData('name')]['edit'] = [
                     'href' => $this->urlBuilder->getUrl(
-                        'groupcat/groupcat/addnew',
+                        'groupcat/groupcat/edit',
                         ['id' => $item['rule_id']]
                     ),
                     'label' => __('Edit'),
-                    'hidden' => false,
-                ];
-                $item[$this->getData('name')]['delete'] = [
-                    'href' => $this->urlBuilder->getUrl(
-                        'groupcat/groupcat/delete',
-                        ['id' => $item['rule_id']]
-                    ),
-                    'label' => __('Delete'),
                     'hidden' => false,
                 ];
             }

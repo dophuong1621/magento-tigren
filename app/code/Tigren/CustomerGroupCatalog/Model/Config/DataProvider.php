@@ -1,43 +1,45 @@
 <?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+ * @package Customer Group Catalog for Magento 2
+ */
 
 namespace Tigren\CustomerGroupCatalog\Model\Config;
 
-use Magento\Ui\DataProvider\AbstractDataProvider;
+use Amasty\Groupcat\Model\Rule;
+use Magento\Framework\App\Request\DataPersistorInterface;
+use Tigren\CustomerGroupCatalog\Model\ResourceModel\GroupCat\Collection;
 use Tigren\CustomerGroupCatalog\Model\ResourceModel\GroupCat\CollectionFactory;
 
-/**
- * Class DataProvider
- * @package Tigren\CustomerGroupCatalog\Model\Config
- */
-class DataProvider extends AbstractDataProvider
+class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
+    /**
+     * @var Collection
+     */
+    protected $collection;
+
     /**
      * @var array
      */
-    protected $_loadedData;
+    protected $loadedData;
 
     /**
-     * @var CollectionFactory
+     * @var DataPersistorInterface
      */
-    protected $collectionFactory;
+    protected $dataPersistor;
 
-    /**
-     * @param string $name
-     * @param string $primaryFieldName
-     * @param string $requestFieldName
-     * @param CollectionFactory $collectionFactory
-     * @param array $meta
-     * @param array $data
-     */
     public function __construct(
         $name,
         $primaryFieldName,
         $requestFieldName,
         CollectionFactory $collectionFactory,
+        DataPersistorInterface $dataPersistor,
         array $meta = [],
         array $data = []
     ) {
-        $this->collection = $collectionFactory;
+        $this->collection = $collectionFactory->create();
+        $this->dataPersistor = $dataPersistor;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
@@ -46,13 +48,24 @@ class DataProvider extends AbstractDataProvider
      */
     public function getData()
     {
-        if (isset($this->_loadedData)) {
-            return $this->_loadedData;
+        if (isset($this->loadedData)) {
+            return $this->loadedData;
         }
-        $items = $this->collection->create()->getItems();
-        foreach ($items as $item) {
-            $this->_loadedData[$item->getId()] = $item->getData();
+        $items = $this->collection->getItems();
+        /** @var Rule $rule */
+        foreach ($items as $rule) {
+            $rule->load($rule->getId());
+            $this->loadedData[$rule->getId()] = $rule->getData();
         }
-        return $this->_loadedData;
+
+        $data = $this->dataPersistor->get('amasty_groupcat_rule');
+        if (!empty($data)) {
+            $rule = $this->collection->getNewEmptyItem();
+            $rule->setData($data);
+            $this->loadedData[$rule->getId()] = $rule->getData();
+            $this->dataPersistor->clear('amasty_groupcat_rule');
+        }
+
+        return $this->loadedData;
     }
 }

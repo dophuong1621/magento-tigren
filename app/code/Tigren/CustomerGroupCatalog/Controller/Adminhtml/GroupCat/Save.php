@@ -61,7 +61,7 @@ class Save extends Action
             $groupCatFactory->load($id);
         }
         try {
-            $groupCatFactory->setData($groupCatData);
+            $groupCatFactory->addData($groupCatData);
             $groupCatFactory->save();
             $this->messageManager->addSuccessMessage(__('You saved the post.'));
         } catch (Exception $e) {

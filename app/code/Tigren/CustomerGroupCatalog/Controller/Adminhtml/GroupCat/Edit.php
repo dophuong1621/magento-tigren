@@ -12,6 +12,7 @@ use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
+use Tigren\CustomerGroupCatalog\Model\GroupCat;
 
 /**
  * Class Edit
@@ -25,12 +26,19 @@ class Edit extends Action
     protected $_pageFactory;
 
     /**
+     * @var GroupCat
+     */
+    protected $rule;
+
+    /**
      * @param Context $context
      * @param PageFactory $pageFactory
+     * @param GroupCat $rule
      */
-    public function __construct(Context $context, PageFactory $pageFactory)
+    public function __construct(Context $context, PageFactory $pageFactory, GroupCat $rule)
     {
         $this->_pageFactory = $pageFactory;
+        $this->rule = $rule;
         parent::__construct($context);
     }
 
@@ -39,9 +47,12 @@ class Edit extends Action
      */
     public function execute()
     {
+        $ruleId = $this->getRequest()->getParam('id');
+        $rule = $this->rule->load($ruleId);
+
         $resultPage = $this->_pageFactory->create();
         $resultPage->getConfig()->getTitle()
-            ->prepend(__('Tigren Customer GroupCatalog Rule: Edit'));
+            ->prepend(__('Edit Rule: ' . $rule->getName()));
 
         return $resultPage;
     }

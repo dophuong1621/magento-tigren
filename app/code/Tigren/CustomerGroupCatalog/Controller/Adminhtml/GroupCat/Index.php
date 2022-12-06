@@ -32,8 +32,7 @@ class Index extends Action
     public function __construct(
         Context     $context,
         PageFactory $resultPageFactory
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
     }
@@ -46,9 +45,9 @@ class Index extends Action
         /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Tigren_CustomerGroupCatalog::groupcat');
-        $resultPage->addBreadcrumb(__('Group Catalog'), __('Group Catalog'));
+        $resultPage->addBreadcrumb(__('Customer Group Catalog'), __('Customer Group Catalog'));
         $resultPage->addBreadcrumb(__('Manage Group Catalog'), __('Manage Group Catalog'));
-        $resultPage->getConfig()->getTitle()->prepend(__('Group Catalog'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Customer Group Catalog'));
 
         return $resultPage;
     }

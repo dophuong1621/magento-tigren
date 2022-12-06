@@ -70,7 +70,7 @@ class Edit extends Container
     public function getHeaderText()
     {
         if ($this->_coreRegistry->registry('testimonial_testimonial')->getId()) {
-            return __("Edit Testimonial '%1'", $this->escapeHtml($this->_coreRegistry->registry('testimonial_testimonial')->getName()));
+            return __('Edit Testimonial:' . $this->escapeHtml($this->_coreRegistry->registry('testimonial_testimonial')->getName()));
         } else {
             return __('New Testimonial');
         }

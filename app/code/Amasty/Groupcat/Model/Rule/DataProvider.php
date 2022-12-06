@@ -52,18 +52,9 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
             return $this->loadedData;
         }
         $items = $this->collection->getItems();
-        /** @var Rule $rule */
         foreach ($items as $rule) {
             $rule->load($rule->getId());
             $this->loadedData[$rule->getId()] = $rule->getData();
-        }
-
-        $data = $this->dataPersistor->get('amasty_groupcat_rule');
-        if (!empty($data)) {
-            $rule = $this->collection->getNewEmptyItem();
-            $rule->setData($data);
-            $this->loadedData[$rule->getId()] = $rule->getData();
-            $this->dataPersistor->clear('amasty_groupcat_rule');
         }
 
         return $this->loadedData;

@@ -9,8 +9,8 @@
       xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">groupcat_groupcat_form.groupcat_listing_data_source</item>
-            <item name="deps" xsi:type="string">groupcat_groupcat_form.groupcat_listing_data_source</item>
+            <item name="provider" xsi:type="string">groupcat_groupcat_form.groupcat_groupcat_form_data_source</item>
+            <item name="deps" xsi:type="string">groupcat_groupcat_form.groupcat_groupcat_form_data_source</item>
         </item>
         <item name="label" xsi:type="string" translate="true">Group Catalog Rule</item>
         <item name="config" xsi:type="array">
@@ -33,10 +33,10 @@
             </button>
         </buttons>
     </settings>
-    <dataSource name="groupcat_listing_data_source">
+    <dataSource name="groupcat_groupcat_form_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Tigren\CustomerGroupCatalog\Model\Config\DataProvider</argument>
-            <argument name="name" xsi:type="string">groupcat_listing_data_source</argument>
+            <argument name="name" xsi:type="string">groupcat_groupcat_form_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">rule_id</argument>
             <argument name="requestFieldName" xsi:type="string">id</argument>
             <argument name="data" xsi:type="array">

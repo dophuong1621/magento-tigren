@@ -1,4 +1,5 @@
 <?php
+
 namespace Tigren\Testimonial\Controller\Adminhtml\Testimonial;
 
 use Magento\Backend\App\Action;
@@ -63,7 +64,7 @@ class Edit extends Action
     }
 
     /**
-     * @return mixed
+     * @return Redirect|Page
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute()
@@ -96,7 +97,7 @@ class Edit extends Action
         );
         $resultPage->getConfig()->getTitle()->prepend(__('Testimonial'));
         $resultPage->getConfig()->getTitle()
-            ->prepend($model->getId() ? $model->getName() : __('New Testimonial'));
+            ->prepend('Edit Testimonial' . $model->getId() ? $model->getName() : __('New Testimonial'));
 
         return $resultPage;
     }

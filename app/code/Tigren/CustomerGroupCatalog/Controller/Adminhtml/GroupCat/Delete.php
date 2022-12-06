@@ -89,6 +89,6 @@ class Delete extends Action
                 )
             );
         }
-        return $this->resultRedirect->create()->setPath('helloworld/post/index');
+        return $this->resultRedirect->create()->setPath('groupcat/groupcat/index');
     }
 }
