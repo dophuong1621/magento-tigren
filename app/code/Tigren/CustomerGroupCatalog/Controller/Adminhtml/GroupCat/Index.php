@@ -48,7 +48,6 @@ class Index extends Action
         $resultPage->addBreadcrumb(__('Customer Group Catalog'), __('Customer Group Catalog'));
         $resultPage->addBreadcrumb(__('Manage Group Catalog'), __('Manage Group Catalog'));
         $resultPage->getConfig()->getTitle()->prepend(__('Customer Group Catalog'));
-
         return $resultPage;
     }
 }

@@ -9,11 +9,11 @@ namespace Tigren\AdvancedCheckout\Observer;
 
 use Exception;
 use Magento\Checkout\Model\Session;
+use Magento\Customer\Model\CustomerFactory;
 use Magento\Customer\Model\Session as cumtomerSession;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Psr\Log\LoggerInterface;
-use Magento\Customer\Model\CustomerFactory;
 
 /**
  * Class GetQuote
@@ -43,14 +43,16 @@ class CreateNewCustomerAccount implements ObserverInterface
 
     /**
      * @param cumtomerSession $customerSession
+     * @param Session $session
+     * @param LoggerInterface $logger
+     * @param CustomerFactory $customerEntityFactory
      */
     public function __construct(
         cumtomerSession $customerSession,
-        Session         $session,
+        Session $session,
         LoggerInterface $logger,
         CustomerFactory $customerEntityFactory,
-    )
-    {
+    ) {
         $this->customerSession = $customerSession;
         $this->session = $session;
         $this->logger = $logger;
@@ -68,14 +70,12 @@ class CreateNewCustomerAccount implements ObserverInterface
                 $customerEmail = $this->session->getLastRealOrder()->getCustomerEmail();
                 $firstName = $this->session->getLastRealOrder()->getCustomerFirstname();
                 $lastName = $this->session->getLastRealOrder()->getCustomerLastname();
-
                 $customer = [
                     'email' => $customerEmail,
                     'password_hash' => md5('succcess'),
                     'firstname' => $firstName,
                     'lastname' => $lastName,
                 ];
-
                 $createCustomerAcount = $this->customerEntityFactory->create();
                 $createCustomerAcount->addData($customer);
                 $createCustomerAcount->save();

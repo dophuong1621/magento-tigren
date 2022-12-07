@@ -10,8 +10,10 @@ namespace Tigren\AdvancedCheckout\Controller\Checkout;
 use Magento\Checkout\Model\Cart;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Controller\ResultInterface;
 
 /**
  * Class ClearCart
@@ -23,6 +25,7 @@ class ClearCart extends Action
      * @var Cart
      */
     private $cart;
+
     /**
      * @var JsonFactory
      */

@@ -12,7 +12,6 @@ use Tigren\Testimonial\Model\Testimonial;
 class Edit extends Action
 {
     /**
-     * Core registry
      * @var Registry
      */
     protected $_coreRegistry = null;
@@ -65,7 +64,6 @@ class Edit extends Action
 
     /**
      * @return Redirect|Page
-     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute()
     {
@@ -84,12 +82,12 @@ class Edit extends Action
         }
 
         $data = $this->_getSession()->getFormData(true);
+
         if (!empty($data)) {
             $model->setData($data);
         }
 
         $this->_coreRegistry->register('testimonial_testimonial', $model);
-
         $resultPage = $this->_initAction();
         $resultPage->addBreadcrumb(
             $id ? __('Edit Testimonial') : __('New Testimonial'),

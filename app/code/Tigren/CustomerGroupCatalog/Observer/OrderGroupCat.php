@@ -72,10 +72,8 @@ class OrderGroupCat implements ObserverInterface
         try {
             $order = $observer->getEvent()->getData('order');
             $customerId = $order->getCustomerId();
-
             $ruleId = $this->checkoutSession->getRuleId();
             $productId = $this->checkoutSession->getProductId();
-
             if ($ruleId) {
                 $oderDataHistory = [
                     'order_id' => $order->getIncrementId(),
@@ -83,7 +81,6 @@ class OrderGroupCat implements ObserverInterface
                     'rule_id' => $ruleId,
                     'product_id' => $productId,
                 ];
-
                 $groupCatHistory = $this->groupCatHistory;
                 $groupCatHistory->addData($oderDataHistory);
                 $groupCatHistory->save();

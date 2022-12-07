@@ -8,10 +8,10 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="checkout_cart_product_add_after">
-        <observer name="add_to_cart" instance="Tigren\CustomerGroupCatalog\Observer\AddToCart"/>
+        <observer name="add_to_cart" instance="Tigren\CustomerGroupCatalog\Observer\AddToCart" />
     </event>
     <event name="checkout_submit_all_after">
         <observer name="place_order_after_groupcat"
-                  instance="Tigren\CustomerGroupCatalog\Observer\OrderGroupCat"/>
+                  instance="Tigren\CustomerGroupCatalog\Observer\OrderGroupCat" />
     </event>
 </config>

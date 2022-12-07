@@ -7,8 +7,10 @@
 
 namespace Tigren\CustomerGroupCatalog\Block\CustomerGroup;
 
+use Magento\Catalog\Model\Product;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
+use Tigren\CustomerGroupCatalog\Model\ResourceModel\GroupCatHistory\Collection;
 use Tigren\CustomerGroupCatalog\Model\ResourceModel\GroupCatHistory\CollectionFactory;
 
 /**
@@ -23,37 +25,31 @@ class Index extends Template
     protected $_oderHistoryCollectionFactory;
 
     /**
+     * @var Product
+     */
+    protected $product;
+
+    /**
      * @param Context $context
      * @param CollectionFactory $orderHistoryCollectionFactory
+     * @param Product $product
      */
-    public function __construct(Context $context, CollectionFactory $orderHistoryCollectionFactory)
-    {
+    public function __construct(
+        Context $context,
+        CollectionFactory $orderHistoryCollectionFactory,
+        Product $product,
+    ) {
         parent::__construct($context);
         $this->_oderHistoryCollectionFactory = $orderHistoryCollectionFactory;
+        $this->product = $product;
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
     public function getProductCollection()
     {
         return $this->_oderHistoryCollectionFactory->create()
-            ->addFieldToSelect('*')
-            ->join(
-                ['salesOrder' => 'sales_order'],
-                'main_table.order_id = salesOrder.increment_id'
-            )
-            ->join(
-                ['customer' => 'customer_entity'],
-                'main_table.customer_id = customer.entity_id'
-            )
-            ->join(
-                ['rule' => 'tigren_customer_group_catalog'],
-                'main_table.rule_id = rule.rule_id'
-            )
-            ->join(
-                ['product' => 'catalog_product_entity'],
-                'main_table.product_id = product.entity_id'
-            );
+            ->addFieldToSelect('*');
     }
 }

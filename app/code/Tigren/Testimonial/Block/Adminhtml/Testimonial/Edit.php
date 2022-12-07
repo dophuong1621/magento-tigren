@@ -41,9 +41,7 @@ class Edit extends Container
         $this->_objectId = 'entity_id';
         $this->_blockGroup = 'Tigren_Testimonial';
         $this->_controller = 'adminhtml_testimonial';
-
         parent::_construct();
-
         if ($this->_isAllowedAction('Tigren_Testimonial::testimonial_save')) {
             $this->buttonList->update('save', 'label', __('Save Testimonial'));
             $this->buttonList->add(

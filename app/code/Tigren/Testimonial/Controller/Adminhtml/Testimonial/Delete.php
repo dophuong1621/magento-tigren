@@ -32,8 +32,7 @@ class Delete extends Action
     public function __construct(
         Action\Context $context,
         Testimonial    $model
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->_model = $model;
     }
@@ -45,7 +44,6 @@ class Delete extends Action
     {
         return $this->_authorization->isAllowed('Tigren_Testimonial::testimonial_delete');
     }
-
 
     /**
      * @return Redirect|ResponseInterface|ResultInterface

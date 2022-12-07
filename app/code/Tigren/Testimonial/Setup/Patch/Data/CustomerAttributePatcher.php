@@ -44,8 +44,7 @@ class CustomerAttributePatcher implements DataPatchInterface
         ModuleDataSetupInterface $setup,
         Config                   $eavConfig,
         CustomerSetupFactory     $customerSetupFactory
-    )
-    {
+    ) {
         $this->customerSetupFactory = $customerSetupFactory;
         $this->setup = $setup;
         $this->eavConfig = $eavConfig;

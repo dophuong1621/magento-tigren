@@ -28,6 +28,11 @@ class Save extends Action
     protected $_pageFactory;
 
     /**
+     * @var Session
+     */
+    private $customerSession;
+
+    /**
      * @var TestimonialFactory
      */
     protected $_testimonialFactory;
@@ -36,15 +41,17 @@ class Save extends Action
      * @param Context $context
      * @param PageFactory $pageFactory
      * @param TestimonialFactory $testimonialFactory
+     * @param Session $customerSession
      */
     public function __construct(
         Context            $context,
         PageFactory        $pageFactory,
         TestimonialFactory $testimonialFactory,
-    )
-    {
+        Session $customerSession,
+    ) {
         $this->_pageFactory = $pageFactory;
         $this->_testimonialFactory = $testimonialFactory;
+        $this->customerSession = $customerSession;
         return parent::__construct($context);
     }
 
@@ -65,6 +72,11 @@ class Save extends Action
             ];
 
             if (!empty($newData)) {
+                $attributeTestimonial = $this->customerSession->getCustomer()->getData('is_created_testimonialis');
+                if ($attributeTestimonial == 0) {
+                    $attribute = $this->customerSession->getCustomer()->setData('is_created_testimonialis', 1);
+                    $attribute->save();
+                }
                 $model = $this->_testimonialFactory->create();
                 $model->addData($newData);
                 $model->save();

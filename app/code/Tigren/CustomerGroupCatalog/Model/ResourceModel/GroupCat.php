@@ -10,12 +10,12 @@ namespace Tigren\CustomerGroupCatalog\Model\ResourceModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
- * GroupCat post mysql resource
+ * Class GroupCat
+ * @package Tigren\CustomerGroupCatalog\Model\ResourceModel
  */
 class GroupCat extends AbstractDb
 {
     /**
-     * Initialize resource model
      * @return void
      */
     protected function _construct()

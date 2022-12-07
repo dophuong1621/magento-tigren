@@ -15,6 +15,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Zend_Validate_Exception;
+use Magento\Catalog\Model\Product;
 
 /**
  * Class AddProductAttribute
@@ -39,8 +40,7 @@ class Addcustomdatapatch implements DataPatchInterface
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,
         EavSetupFactory          $eavSetupFactory
-    )
-    {
+    ) {
         $this->_moduleDataSetup = $moduleDataSetup;
         $this->_eavSetupFactory = $eavSetupFactory;
     }
@@ -54,8 +54,7 @@ class Addcustomdatapatch implements DataPatchInterface
     {
         /** @var EavSetup $eavSetup */
         $eavSetup = $this->_eavSetupFactory->create(['setup' => $this->_moduleDataSetup]);
-
-        $eavSetup->addAttribute(\Magento\Catalog\Model\Product::ENTITY, 'allow_multi_order', [
+        $eavSetup->addAttribute(Product::ENTITY, 'allow_multi_order', [
             'type' => 'int',
             'backend' => \Magento\Catalog\Model\Product\Attribute\Backend\Boolean::class,
             'frontend' => '',

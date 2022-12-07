@@ -41,8 +41,8 @@ class ListTestimonial extends Template
     public function __construct(
         Context $context,
         CollectionFactory $testimonial,
+        LoggerInterface $logger,
         array $data = [],
-        LoggerInterface   $logger,
     ) {
         $this->_testimonial = $testimonial;
         $this->logger = $logger;

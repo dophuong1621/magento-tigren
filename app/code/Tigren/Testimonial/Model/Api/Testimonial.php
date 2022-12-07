@@ -7,6 +7,7 @@
 
 namespace Tigren\Testimonial\Model\Api;
 
+use Exception;
 use Magento\Customer\Model\Session;
 use Tigren\Testimonial\Api\TestimonialInterface;
 use Tigren\Testimonial\Model\TestimonialFactory;
@@ -42,6 +43,7 @@ class Testimonial implements TestimonialInterface
     /**
      * @param string $data
      * @return array
+     * @throws Exception
      */
     public function saveTestimonial($data)
     {
@@ -67,7 +69,7 @@ class Testimonial implements TestimonialInterface
             $testimonial = $this->testimonialFactory->create();
             $testimonial->addData($newData);
             $attributeTestimonial = $this->customerSession->getCustomer()->getData('is_created_testimonialis');
-            if ($attributeTestimonial === 0) {
+            if ($attributeTestimonial == 0) {
                 $attribute = $this->customerSession->getCustomer()->setData('is_created_testimonialis', 1);
                 $attribute->save();
             }

@@ -58,7 +58,6 @@ class GroupCatActions extends Column
                 ];
             }
         }
-
         return $dataSource;
     }
 }

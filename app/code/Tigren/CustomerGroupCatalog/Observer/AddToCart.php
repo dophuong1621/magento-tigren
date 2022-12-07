@@ -48,12 +48,11 @@ class AddToCart implements ObserverInterface
      * @param LoggerInterface $logger
      */
     public function __construct(
-        Session           $checkoutSession,
+        Session $checkoutSession,
         CollectionFactory $collectionFactory,
-        DateTimeFactory   $dateTimeFactory,
-        LoggerInterface   $logger,
-    )
-    {
+        DateTimeFactory $dateTimeFactory,
+        LoggerInterface $logger,
+    ) {
         $this->_checkoutSession = $checkoutSession;
         $this->collectionFactory = $collectionFactory;
         $this->dateTimeFactory = $dateTimeFactory;
@@ -68,10 +67,8 @@ class AddToCart implements ObserverInterface
     {
         try {
             $this->_checkoutSession->start();
-
             $product = $observer->getEvent()->getProduct();
             $quoteItem = $observer->getEvent()->getQuoteItem();
-
             $sku = $product->getSku();
             $priceProduct = $product->getPrice();
 
@@ -85,14 +82,14 @@ class AddToCart implements ObserverInterface
                 ->addFieldToFilter('product_ids', $sku)
                 ->addFieldToFilter('start_time', ['lteq' => $dateCurrent])
                 ->addFieldToFilter('time_end', ['gteq' => $dateCurrent])
-                ->setOrder('priority', 'ASC');
+                ->setOrder('priority', 'ASC')
+                ->setPageSize(1)
+                ->getFirstItem();
 
-            $rule = $collection->setPageSize(1)->getFirstItem();
-
-            if ($rule->getId() > 0) {
-                $this->_checkoutSession->setRuleId($rule->getId());
+            if ($collection->getId() > 0) {
+                $this->_checkoutSession->setRuleId($collection->getId());
                 $this->_checkoutSession->setProductId($product->getId());
-                $discount = $rule->getDiscountAmount();
+                $discount = $collection->getDiscountAmount();
                 $price = $priceProduct - ($priceProduct * $discount / 100);
                 $quoteItem->setCustomPrice($price);
                 $quoteItem->setOriginalCustomPrice($price);

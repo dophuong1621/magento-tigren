@@ -30,8 +30,7 @@ class Custom extends AbstractTotal
      */
     public function __construct(
         PriceCurrencyInterface $priceCurrency
-    )
-    {
+    ) {
         $this->_priceCurrency = $priceCurrency;
     }
 
@@ -45,8 +44,7 @@ class Custom extends AbstractTotal
         Quote                       $quote,
         ShippingAssignmentInterface $shippingAssignment,
         Total                       $total
-    )
-    {
+    ) {
         parent::collect($quote, $shippingAssignment, $total);
         $baseDiscount = 10;
         $discount = $this->_priceCurrency->convert($baseDiscount);

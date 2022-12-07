@@ -12,7 +12,7 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Tigren\AdvancedCheckout\Model\ResourceModel\SalesOrder\CollectionFactory;
+use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Zend_Log_Exception;
 
 /**
@@ -47,8 +47,7 @@ class PlaceOrder extends Action
         CollectionFactory $salesOrderFactory,
         Session           $customerSession,
         JsonFactory       $resultJsonFactory,
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->salesOrderFactory = $salesOrderFactory;
         $this->_customerSession = $customerSession;
@@ -62,17 +61,13 @@ class PlaceOrder extends Action
     public function execute()
     {
         $email = $this->_customerSession->getCustomer()->getEmail();
-
         $collection = $this->salesOrderFactory->create()
             ->addFieldToSelect('*')
             ->addFieldToFilter('customer_email', $email)
             ->setOrder('entity_id', 'DESC');
-
-        $checkStatus = $collection->setPageSize(1)->getFirstItem();
-
-        $status = $checkStatus->getStatus();
-
-        if (strpos('complete', $status) == 0) {
+        $order = $collection->setPageSize(1)->getFirstItem();
+        $status = $order->getStatus();
+        if ($status === 'complete') {
             $response = [
                 'result' => true,
             ];
@@ -81,7 +76,6 @@ class PlaceOrder extends Action
                 'result' => false,
             ];
         }
-
         $resultJson = $this->resultJsonFactory->create();
         return $resultJson->setData($response);
     }

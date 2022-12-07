@@ -49,7 +49,6 @@ class Edit extends Action
     {
         $ruleId = $this->getRequest()->getParam('id');
         $rule = $this->rule->load($ruleId);
-
         $resultPage = $this->_pageFactory->create();
         $resultPage->getConfig()->getTitle()
             ->prepend(__('Edit Rule: ' . $rule->getName()));

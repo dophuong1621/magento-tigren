@@ -55,11 +55,6 @@
             </argument>
         </arguments>
     </type>
-    <type name="Tigren\CustomerGroupCatalog\Controller\Index\Example">
-        <plugin name="Tigren_CustomerGroupCatalog_Plugin" type="Tigren\CustomerGroupCatalog\Plugin\ExamplePlugin"
-                sortOrder="10"
-                disabled="false"/>
-    </type>
 
     <!-- Simulate our class Tigren\CustomerGroupCatalog\Model\ResourceModel\Grid\GroupCat\Collection -->
     <virtualType name="Tigren\CustomerGroupCatalog\Model\ResourceModel\Grid\GroupCat\Collection"

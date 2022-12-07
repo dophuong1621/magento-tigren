@@ -32,8 +32,7 @@ class DataProvider extends AbstractDataProvider
         $primaryFieldName,
         $requestFieldName,
         CollectionFactory $collectionFactory,
-    )
-    {
+    ) {
         $this->collection = $collectionFactory;
         parent::__construct($name, $primaryFieldName, $requestFieldName);
     }

@@ -26,8 +26,7 @@ class HideButton
      */
     public function __construct(
         Context $httpContext,
-    )
-    {
+    ) {
         $this->httpContext = $httpContext;
     }
 

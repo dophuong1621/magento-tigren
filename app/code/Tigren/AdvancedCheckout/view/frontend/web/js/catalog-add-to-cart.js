@@ -100,6 +100,8 @@ define([
                                         ]
                                     });
                                     popup.modal('openModal');
+                                    self.enableAddToCartButton(form);
+                                    return false;
                                 }
                             },
                         });
@@ -149,7 +151,6 @@ define([
                                 .html(res.product.statusText);
                         }
                         self.enableAddToCartButton(form);
-
                     },
 
                     /** @inheritdoc */

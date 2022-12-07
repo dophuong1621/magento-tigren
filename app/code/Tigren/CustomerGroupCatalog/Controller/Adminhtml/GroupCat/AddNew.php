@@ -45,13 +45,11 @@ class AddNew extends Action
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $ruleId = $this->getRequest()->getParam('id');
         $rule = $this->rule->load($ruleId);
-
         if ($rule->getId()) {
             $resultPage->getConfig()->getTitle()->prepend(__('Edit Rule ' . $rule->getName()));
         } else {
             $resultPage->getConfig()->getTitle()->prepend(__('Add New Group Catalog'));
         }
-
         return $resultPage;
     }
 }

@@ -25,7 +25,6 @@ class Save extends Action
     private $groupCatFactory;
 
     /**
-     * Save constructor.
      * @param Context $context
      * @param GroupCat $groupCatFactory
      */
@@ -44,7 +43,6 @@ class Save extends Action
     {
         $data = $this->getRequest()->getPostValue();
         $id = !empty($data['rule_id']) ? $data['rule_id'] : null;
-
         $groupCatData = [
             'name' => $data['name'],
             'discount_amount' => $data['discount_amount'],

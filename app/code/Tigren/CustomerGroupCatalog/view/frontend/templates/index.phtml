@@ -10,7 +10,6 @@
  */
 
 use Tigren\CustomerGroupCatalog\Block\CustomerGroup\Index;
-
 $productCollection = $block->getProductCollection();
 
 ?>
@@ -20,12 +19,10 @@ $productCollection = $block->getProductCollection();
         <caption class="table-caption"><?php echo __('Rule Record') ?></caption>
         <thead>
         <tr>
-            <th scope="col" class="col id"><?php echo __('ID #') ?></th>
-            <th scope="col" class="col product"><?php echo __('Product Id') ?></th>
-            <th scope="col" class="col product"><?php echo __('Product Sku') ?></th>
-            <th scope="col" class="col customer"><?php echo __('Bill To Name') ?></th>
-            <th scope="col" class="col rule"><?php echo __('Rule ') ?></th>
-            <th scope="col" class="col rule"><?php echo __('Price Total ') ?></th>
+            <th scope="col" class="col id"><?php echo __('Order ID') ?></th>
+            <th scope="col" class="col product"><?php echo __('Product ID') ?></th>
+            <th scope="col" class="col product"><?php echo __('Customer ID') ?></th>
+            <th scope="col" class="col customer"><?php echo __('Rule ID') ?></th>
             <th scope="col" class="col rule"><?php echo __('Created At ') ?></th>
             <th scope="col" class="col ">&nbsp;</th>
         </tr>
@@ -36,10 +33,8 @@ $productCollection = $block->getProductCollection();
             <tr>
                 <td class="col shipping"><?php echo $rule->getOrderId() ?></td>
                 <td class="col shipping"><?php echo $rule->getProductId() ?></td>
-                <td class="col shipping"><?php echo $rule->getSku() ?></td>
-                <td class="col shipping"><?php echo $rule->getCustomerFirstname() . ' ' . $rule->getCustomerLastname() ?></td>
+                <td class="col shipping"><?php echo $rule->getCustomerId() ?></td>
                 <td class="col shipping"><?php echo $rule->getRuleId() ?></td>
-                <td class="col shipping"><?php echo '$' . number_format($rule->getTotalDue(), 2) ?></td>
                 <td class="col date"><?php echo $rule->getCreatedAt() ?></td>
             </tr>
         <?php endforeach; ?>

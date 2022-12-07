@@ -13,8 +13,6 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Tigren\AdvancedCheckout\Model\ResourceModel\CatalogProductEntityInt\CollectionFactory as CatProductFactory;
-use Tigren\AdvancedCheckout\Model\ResourceModel\Quote\CollectionFactory;
 
 /**
  * Class AdvancedCheckout
@@ -22,20 +20,11 @@ use Tigren\AdvancedCheckout\Model\ResourceModel\Quote\CollectionFactory;
  */
 class AdvancedCheckout extends Action
 {
-    /**
-     * @var CollectionFactory
-     */
-    private $quoteItemFactory;
 
     /**
      * @var Product
      */
     private $productModel;
-
-    /**
-     * @var CatProductFactory
-     */
-    private $catProductFactory;
 
     /**
      * @var Cart
@@ -50,24 +39,17 @@ class AdvancedCheckout extends Action
     /**
      * @param Cart $cart
      * @param Context $context
-     * @param CollectionFactory $quoteItemFactory
-     * @param CatProductFactory $catProductFactory
      * @param JsonFactory $resultJsonFactory
      * @param Product $productModel
      */
     public function __construct(
         Cart              $cart,
         Context           $context,
-        CollectionFactory $quoteItemFactory,
-        CatProductFactory $catProductFactory,
         JsonFactory       $resultJsonFactory,
         Product           $productModel,
-    )
-    {
+    ) {
         parent::__construct($context);
-        $this->quoteItemFactory = $quoteItemFactory;
         $this->cart = $cart;
-        $this->catProductFactory = $catProductFactory;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->productModel = $productModel;
     }
@@ -83,16 +65,12 @@ class AdvancedCheckout extends Action
         $allProduct = $this->cart->getQuote()->getAllVisibleItems();
         $idProduct = $this->getRequest()->getParam('product');
         $product = $this->productModel->load($idProduct);
+        $attributeProduct = (bool)$product->getData("allow_multi_order");
         $skuProduct = $product->getSku();
-
-
-        $attributeProduct = $product->getData("allow_multi_order");
-
-        if ($attributeProduct == 1) {
+        if ($attributeProduct === true) {
             foreach ($allProduct as $item) {
-                if ($item->getSku() == $skuProduct) {
-//                    $paramQty = $this->getRequest()->getParam('qty');
-                    if ($item->getQty() > 1) {
+                if (isset($item)) {
+                    if ($item->getSku() == $skuProduct) {
                         $data = [
                             'product_in_cart' => $skuProduct,
                         ];
@@ -108,7 +86,6 @@ class AdvancedCheckout extends Action
                 }
             }
         }
-
         $resultJson = $this->resultJsonFactory->create();
         return $resultJson->setData($response);
     }

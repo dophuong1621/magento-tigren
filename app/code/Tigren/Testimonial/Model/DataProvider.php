@@ -7,7 +7,6 @@
 
 namespace Tigren\Testimonial\Model;
 
-
 use Magento\Ui\DataProvider\AbstractDataProvider;
 use Tigren\Testimonial\Model\ResourceModel\Testimonial\CollectionFactory;
 
@@ -23,7 +22,6 @@ class DataProvider extends AbstractDataProvider
      * @var ResourceModel\Testimonial\Collection
      */
     protected $collection;
-
 
     /**
      * @param $name

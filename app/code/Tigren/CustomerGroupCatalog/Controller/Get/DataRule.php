@@ -35,7 +35,7 @@ class DataRule extends Action
     }
 
     /**
-     * @return array
+     * @return mixed
      */
     public function execute()
     {
@@ -43,7 +43,6 @@ class DataRule extends Action
         $collection = $this->collectionFactory->create()
             ->addFieldToSelect(['*'])
             ->addFieldToFilter('active', 1);
-
         return $collection->getData();
     }
 

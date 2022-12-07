@@ -62,13 +62,11 @@ class Form extends Generic
     {
         /** @var Testimonial $model */
         $model = $this->_coreRegistry->registry('testimonial_testimonial');
-
         $form = $this->_formFactory->create(
             ['data' => ['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']]
         );
 
         $form->setHtmlIdPrefix('testimonial_');
-
         $fieldset = $form->addFieldset(
             'base_fieldset',
             ['legend' => __('Form Testimonial'), 'class' => 'fieldset-wide']
@@ -125,7 +123,6 @@ class Form extends Generic
         $form->setValues($model->getData());
         $form->setUseContainer(true);
         $this->setForm($form);
-
         return parent::_prepareForm();
     }
 }
